@@ -18,6 +18,15 @@ module.exports = {
             options: { minimize: true }
           }
         ]
+      },
+      {
+        test: /\.scss/,
+        use: ["style-loader", "css-loader", {
+          loader: "postcss-loader",
+          options: {
+            plugins: () => [require("autoprefixer")],
+          },
+        }, "sass-loader"],
       }
     ]
   },

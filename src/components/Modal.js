@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
 import { pages } from '../../build/pages.scss';
+import MapComp from './MapComp';
 
 
 
@@ -9,10 +10,10 @@ const Modal = ({ e, eId = "", modalId, currentId = 0, data = "no data",
   // console.log("e", e, "eId:",eId = "", "modalId", modalId, "currentId", currentId= 0, 
   // "data", data = "no data" , "onClick", onClick = f => f, "closeModal", closeModal, "show", show, "formatTime", formatTime, 
   // "formatLocation", formatLocation, "formatSessions", formatSessions, "formatDay", formatDay);
-    if (!show) {
+  if (!show) {
     return null;
   }
-  
+
   return <div className="backDrop" >
     <div className="modalStyle" onClick={() => closeModal()} >
 
@@ -30,53 +31,53 @@ const Modal = ({ e, eId = "", modalId, currentId = 0, data = "no data",
               <p className="bold"> Date & TIme
             </p>
               <p >
-                  {(e.event_start) ? formatDay((new Date(parseInt(e.event_start, 10)))) : formatTime(null)}<br/>
-                  {(e.event_start) ? formatTime((new Date(parseInt(e.event_start, 10)))) : formatTime(null)}
+                {(e.event_start) ? formatDay((new Date(parseInt(e.event_start, 10)))) : formatTime(null)}<br />
+                {(e.event_start) ? formatTime((new Date(parseInt(e.event_start, 10)))) : formatTime(null)}
                 - {(e.event_end) ? formatTime((new Date(parseInt(e.event_end, 10)))) : formatTime(null)}
               </p>
               <p className="bold"> Location
             </p>
               <p>
-                {(e.venue) ? formatLocation(e.venue).name : "TBA"}<br/>
-                {(e.venue) ? formatLocation(e.venue).address : "TBA"}<br/>
-                {(e.venue) ? formatLocation(e.venue).city : "TBA"}<br/>
-                {(e.venue) ? formatLocation(e.venue).region : "TBA"}<br/>
-                {(e.venue) ? formatLocation(e.venue).postalCode : "TBA"}<br/>
-                {(e.venue) ? formatLocation(e.venue).country !== "United States"?formatLocation(e.venue).country :""     : "country TBA"}
+                {(e.venue) ? formatLocation(e.venue).name : "TBA"}<br />
+                {(e.venue) ? formatLocation(e.venue).address : "TBA"}<br />
+                {(e.venue) ? formatLocation(e.venue).city : "TBA"}<br />
+                {(e.venue) ? formatLocation(e.venue).region : "TBA"}<br />
+                {(e.venue) ? formatLocation(e.venue).postalCode : "TBA"}<br />
+                {(e.venue) ? formatLocation(e.venue).country !== "United States" ? formatLocation(e.venue).country : "" : "country TBA"}
               </p>
             </td>
-            <td>GoogleMaps  
+            <td>GoogleMaps<MapComp />  
              
             </td>
           </tr>
 
-          <tr>
-            <td colSpan="2">
-              <p className="bold"> Description
+            <tr>
+              <td colSpan="2">
+                <p className="bold"> Description
             </p>
-              <p>
-                {eId.description}
-              </p>
-            </td>
-          </tr>
+                <p>
+                  {eId.description}
+                </p>
+              </td>
+            </tr>
 
-          <tr>
-            <td>
-              <p className="bold"> Session({eId.sessions.length})
+            <tr>
+              <td>
+                <p className="bold"> Session({eId.sessions.length})
              </p>
-            </td>
-          </tr>
-              {formatSessions(eId.sessions)}
+              </td>
+            </tr>
+            {formatSessions(eId.sessions)}
 
         </tbody>
       </table>
 
     </div>
-  </div>
-}
-
-export default Modal;
-
+    </div>
+    }
+    
+    export default Modal;
+    
 // export default class Modal extends Component{
 //   constructor(props){
 //   super(props);

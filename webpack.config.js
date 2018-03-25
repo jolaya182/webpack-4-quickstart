@@ -1,6 +1,7 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+ 
   module: {
     rules: [
       {
@@ -11,6 +12,24 @@ module.exports = {
         }
       },
       {
+          test: /\.(jpg|png|svg)$/,
+          use: {
+            loader: "file-loader",
+          },
+        },
+      {
+        test: /\.ejs$/,
+        loader: 'ejs-html-loader',
+      },
+      {
+        test:/\.ejs$/,
+        exclude:/node_modules/,
+        use:
+          {
+            loader: 'ejs-loader'
+          }
+      },
+      {
         test: /\.html$/,
         use: [
           {
@@ -18,6 +37,15 @@ module.exports = {
             options: { minimize: true }
           }
         ]
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader", {
+          loader: "postcss-loader",
+          options: {
+            plugins: () => { [require("autoprefixer")] }
+          }
+        }]
       },
       {
         test: /\.scss/,
@@ -33,7 +61,8 @@ module.exports = {
   plugins: [
     new HtmlWebPackPlugin({
       template: "./src/index.html",
-      filename: "./index.html"
+      filename: "./index.html",
+     
     })
   ]
 };
